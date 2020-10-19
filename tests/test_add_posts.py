@@ -28,9 +28,10 @@ class TestAddPosts:
 
     @allure.title('Negative. Incorrect body')
     def test_incorrect_body(self):
+        body = Text('en')
         response = Client().add_new_post(data={
-            'title': 'foo',
-            'body': 'bar',
-            'userId': 1,
+            'title': 'test_title',
+            'body': body.text(quantity=1400),
+            'userId': 1
         })
-        assert response.headers['Content-Type'] == 'application/json; charset=utf-8'
+        assert response.status_code == 500
