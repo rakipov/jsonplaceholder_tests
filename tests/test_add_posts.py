@@ -1,6 +1,7 @@
 import allure
 import pytest
 from mimesis import Text
+from framework.helper import broken_data
 from framework.check import check_add_new_post_response
 from framework.jsonplaceholder_client import Client
 
@@ -28,10 +29,5 @@ class TestAddPosts:
 
     @allure.title('Negative. Incorrect body')
     def test_incorrect_body(self):
-        body = Text('en')
-        response = Client().add_new_post(data={
-            'title': 'test_title',
-            'body': body.text(quantity=1400),
-            'userId': 1
-        })
+        response = Client().add_new_post(data=broken_data())
         assert response.status_code == 500
