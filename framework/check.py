@@ -20,6 +20,18 @@ def check_get_post_by_id_response(response):
 
 
 @allure.step
+def check_get_user_info_by_id_response(response, name, email):
+    _response_general_check(response)
+    assert_that(response.json()['name'], equal_to(name))
+    assert_that(response.json()['email'], equal_to(email))
+
+
+@allure.step
+def check_get_user_info_by_null_id_response(response):
+    assert_that(len(response.json()), equal_to(0))
+
+
+@allure.step
 def check_add_new_post_response(response, expected_code=201):
     assert_that(response.status_code, equal_to(expected_code))
 

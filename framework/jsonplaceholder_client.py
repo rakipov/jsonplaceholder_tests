@@ -16,6 +16,10 @@ class Client:
         return self._get(path=f'/posts')
 
     @allure.step
+    def get_user_info_by_id(self, user_id: int):
+        return self._get(path=f'/users/{user_id}')
+
+    @allure.step
     def get_post_by_id(self, post_id: int):
         return self._get(path=f'/posts/{post_id}')
 
