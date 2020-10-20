@@ -1,4 +1,5 @@
 import allure
+from framework.helper import get_expected_response_data
 from hamcrest import assert_that, equal_to
 from requests import codes
 
@@ -20,10 +21,9 @@ def check_get_post_by_id_response(response):
 
 
 @allure.step
-def check_get_user_info_by_id_response(response, name, email):
+def check_get_user_info_by_id_response(response):
     _response_general_check(response)
-    assert_that(response.json()['name'], equal_to(name))
-    assert_that(response.json()['email'], equal_to(email))
+    assert_that(response.json(), equal_to(get_expected_response_data()))
 
 
 @allure.step

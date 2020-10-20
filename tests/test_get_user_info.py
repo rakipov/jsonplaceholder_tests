@@ -8,12 +8,10 @@ from framework.jsonplaceholder_client import Client
 class TestGetPosts:
 
     @pytest.mark.parametrize('user_id', [10])
-    @pytest.mark.parametrize('name', ['Clementina DuBuque'])
-    @pytest.mark.parametrize('email', ['Rey.Padberg@karina.biz'])
     @allure.title('Positive. Get user info by id')
-    def test_get_user_info_by_id(self, user_id, name, email):
+    def test_get_user_info_by_id(self, user_id):
         response = Client().get_user_info_by_id(user_id=user_id)
-        check_get_user_info_by_id_response(response, name, email)
+        check_get_user_info_by_id_response(response)
 
     @allure.title('Negative. Get user info by null id')
     def test_get_user_info_by_null_id(self):
