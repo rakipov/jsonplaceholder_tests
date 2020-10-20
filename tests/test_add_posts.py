@@ -1,33 +1,22 @@
 import allure
-import pytest
-from mimesis import Text
+from hamcrest import assert_that, equal_to
 from framework.helper import broken_data
-from framework.check import check_add_new_post_response
+from framework.check import check_add_new_post_response, check_add_incorrect_post
 from framework.jsonplaceholder_client import Client
 
 
 @allure.suite('POST /posts')
 class TestAddPosts:
 
-    @pytest.fixture
-    def some_data(self):
-        text = Text('en')
-        data = {
-            'title': text.text(quantity=2),
-            'body': text.text(quantity=2),
-            'userId': 1
-        }
-        return data
-
     @allure.title('Positive. Add new post')
     def test_add_post(self, some_data):
         response = Client().add_new_post(some_data)
         check_add_new_post_response(response)
-        assert response.json()['title'] == some_data['title']
-        assert response.json()['body'] == some_data['body']
-        assert response.headers['Content-Type'] == 'application/json; charset=utf-8'
+        assert_that(response.json()['title'], equal_to(some_data['title']))
+        assert_that(response.json()['body'], equal_to(some_data['body']))
+        assert_that(response.headers['Content-Type'], equal_to('application/json; charset=utf-8'))
 
     @allure.title('Negative. Incorrect body')
-    def test_incorrect_body(self):
+    def test_add_incorrect_post(self):
         response = Client().add_new_post(data=broken_data())
-        assert response.status_code == 500
+        check_add_incorrect_post(response)

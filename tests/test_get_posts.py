@@ -1,6 +1,6 @@
 import allure
 import pytest
-from framework.check import check_get_all_posts_response, check_get_post_by_id_response
+from framework.check import check_get_all_posts_response, check_get_post_by_id_response, check_get_post_by_null_id
 from framework.jsonplaceholder_client import Client
 
 
@@ -21,4 +21,4 @@ class TestGetPosts:
     @allure.title('Negative. Get post by null id')
     def test_get_post_by_null_id(self):
         response = Client().get_post_by_id(post_id=-2)
-        assert response.status_code == 404
+        check_get_post_by_null_id(response)
