@@ -32,15 +32,15 @@ def check_get_user_info_by_null_id_response(response):
 
 
 @allure.step
-def check_add_new_post_response(response, expected_code=201):
+def check_add_new_post_response(response, expected_code):
     assert_that(response.status_code, equal_to(expected_code))
 
 
 @allure.step
-def check_get_post_by_null_id(response, expected_code=404):
+def check_get_post_by_null_id(response, expected_code):
     assert_that(response.status_code, equal_to(expected_code))
 
 
 @allure.step
-def check_add_incorrect_post(response, expected_code=500):
+def check_add_incorrect_post(response, expected_code):
     assert_that(response.status_code, equal_to(expected_code))

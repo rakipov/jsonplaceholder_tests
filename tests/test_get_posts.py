@@ -21,4 +21,4 @@ class TestGetPosts:
     @allure.title('Negative. Get post by null id')
     def test_get_post_by_null_id(self):
         response = Client().get_post_by_id(post_id=-2)
-        check_get_post_by_null_id(response)
+        check_get_post_by_null_id(response, 404)
